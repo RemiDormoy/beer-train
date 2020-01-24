@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-class TimeAndPlace extends StatelessWidget {
-
+// ignore: must_be_immutable
+class TimeAndPlace extends StatefulWidget {
   DriverChosenCallback _callback = () {};
 
-
   TimeAndPlace([this._callback]);
+
+  @override
+  _TimeAndPlaceState createState() => _TimeAndPlaceState();
+}
+
+class _TimeAndPlaceState extends State<TimeAndPlace> {
+  double _discreteValue = 18.0 * 60;
+
+  String _eta = "18:00";
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +25,7 @@ class TimeAndPlace extends StatelessWidget {
         Row(
           children: <Widget>[
             GestureDetector(
-              onTap: _callback,
+              onTap: widget._callback,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
                 child: IconButton(
@@ -69,18 +77,24 @@ class TimeAndPlace extends StatelessWidget {
               )),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
-          child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.black, width: 2)),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: "Heure d'arrivée"),
-                ),
-              )),
+          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+          child: Column(
+            children: <Widget>[
+              Slider(
+                value: _discreteValue,
+                min: (17 * 60).toDouble(),
+                max: (20.5 * 60).toDouble(),
+                divisions: 14,
+                onChanged: (value) {
+                  setState(() {
+                    _discreteValue = value;
+                  });
+                },
+                label: _calculeLHeure(_discreteValue.round()),
+              ),
+              Text("ARRIVÉE PRÉVUE À : $_eta")
+            ],
+          ),
         ),
         Expanded(
           child: Container(),
@@ -115,5 +129,15 @@ class TimeAndPlace extends StatelessWidget {
         )
       ],
     );
+  }
+
+  String _calculeLHeure(int value) {
+    String hours = (value / 60).truncate().toString();
+    String minutes = (value % 60).round().toString();
+    if (minutes.length == 1) {
+      minutes = minutes + "0";
+    }
+    _eta = "${hours}h$minutes";
+    return _eta;
   }
 }
