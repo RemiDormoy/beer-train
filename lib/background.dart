@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:beer_train/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lottie/flutter_lottie.dart';
 
@@ -27,24 +28,42 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.green
+    return Stack(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: sky,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: sky,
+                ),
+              ),
+            )
+          ],
         ),
-        child: SizedBox(
-          height: 200,
-          width: 200,
-          child: LottieView.fromFile(
-            onViewCreated: onViewCreatedFile,
-            filePath: "assets/train.json",
-            autoPlay: true,
-            loop: true,
-            reverse: false,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+          child: FractionallySizedBox(
+            heightFactor: 0.3,
+            child: LottieView.fromFile(
+              onViewCreated: onViewCreatedFile,
+              filePath: "assets/train.json",
+              autoPlay: true,
+              loop: true,
+              reverse: false,
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
