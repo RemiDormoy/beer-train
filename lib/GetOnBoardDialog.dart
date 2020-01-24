@@ -74,10 +74,10 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
         alignment: FractionalOffset.center,
         transform: Matrix4.identity()
           ..setEntry(3, 2, -0.001)
-          ..rotateY(180  * 3.14 / 180)
+          ..rotateY(180 * 3.14 / 180)
           ..rotateX(0.0)
           ..rotateZ(0.0),
-        child: TimeAndPlace(),
+        child: TimeAndPlace(_onBack),
       );
     }
     return Transform(
@@ -99,6 +99,10 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
     );
   }
 
+  void _onBack() {
+    _controller.reverse();
+  }
+
   void _onDriverChoosen() {
     setState(() {
       _degrees = Tween<double>(
@@ -116,6 +120,8 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
       )..addListener(() {
           if (_degrees.value >= 90 && _isOnList) {
             _isOnList = false;
+          } else if (_degrees.value < 90 && !_isOnList) {
+            _isOnList = true;
           }
         });
       _controller.forward();

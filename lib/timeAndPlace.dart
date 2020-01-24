@@ -1,29 +1,51 @@
+import 'package:beer_train/passager.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
 class TimeAndPlace extends StatelessWidget {
+
+  DriverChosenCallback _callback = () {};
+
+
+  TimeAndPlace([this._callback]);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 30, 0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.black,
-                  size: 60,
+        Row(
+          children: <Widget>[
+            GestureDetector(
+              onTap: _callback,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 60,
+                  ),
                 ),
               ),
             ),
-          ),
+            Expanded(child: Container()),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 50, 0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.black,
+                    size: 60,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
