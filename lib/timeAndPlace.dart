@@ -1,5 +1,8 @@
+import 'package:beer_train/CreateTrainModal.dart';
+import 'package:beer_train/GetOnBoardButton.dart';
 import 'package:beer_train/passager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'colors.dart';
 
@@ -16,54 +19,60 @@ class TimeAndPlace extends StatefulWidget {
 class _TimeAndPlaceState extends State<TimeAndPlace> {
   double _discreteValue = 18.0 * 60;
 
-  String _eta = "18:00";
-
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            GestureDetector(
-              onTap: widget._callback,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 30, 0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                    size: 60,
-                  ),
-                ),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF3A3A39),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
               ),
             ),
-            Expanded(child: Container()),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 50, 0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: Colors.black,
-                    size: 60,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: widget._callback,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 15),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Expanded(
+                    child: Text(
+                  "Lieu et heure d'arrivée",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
+                )),
+              ],
             ),
-          ],
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+          padding: const EdgeInsets.fromLTRB(30, 60, 20, 0),
           child: Text(
-            "LIEU ET HEURE D'ARRIVÉE",
+            "Gare d'arrivée",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
+          padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
           child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -72,14 +81,34 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: "Lieu d'arrivée"),
+                      border: InputBorder.none, hintText: "Ex: Le k1nze"),
                 ),
               )),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        "Arrivée prévue :",
+                        style:
+                            TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ),
+                    Text(
+                      _calculeLHeure(_discreteValue.round()),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    )
+                  ],
+                ),
+              ),
               Slider(
                 value: _discreteValue,
                 min: (17 * 60).toDouble(),
@@ -92,7 +121,6 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
                 },
                 label: _calculeLHeure(_discreteValue.round()),
               ),
-              Text("ARRIVÉE PRÉVUE À : $_eta")
             ],
           ),
         ),
@@ -100,10 +128,10 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
           child: Container(),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 40),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              Provider.of<CreateTrainModalModel>(context, listen: false).close();
             },
             child: Container(
               width: MediaQuery.of(context).size.width - 80,
@@ -121,7 +149,7 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
                 ),
               ),
               decoration: BoxDecoration(
-                color: coquelicot,
+                color: skyGradientTop,
                 borderRadius: BorderRadius.circular(40),
               ),
             ),
@@ -137,7 +165,6 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
     if (minutes.length == 1) {
       minutes = minutes + "0";
     }
-    _eta = "${hours}h$minutes";
-    return _eta;
+    return "${hours}h$minutes";
   }
 }
