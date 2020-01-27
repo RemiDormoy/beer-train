@@ -4,6 +4,7 @@ import 'package:beer_train/passager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'TrainRepository.dart';
 import 'colors.dart';
 
 // ignore: must_be_immutable
@@ -18,6 +19,14 @@ class TimeAndPlace extends StatefulWidget {
 
 class _TimeAndPlaceState extends State<TimeAndPlace> {
   double _discreteValue = 18.0 * 60;
+
+  TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +89,9 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                 child: TextField(
+                  controller: _controller,
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: "Ex: Le k1nze"),
+                      border: InputBorder.none, hintText: "Le k1nze"),
                 ),
               )),
         ),
@@ -131,6 +141,8 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 40),
           child: GestureDetector(
             onTap: () {
+              var place = _controller.text.length == 0 ? 'Le k1nze' : _controller.text;
+              TrainRepository.getInstance().createTrain(_calculeLHeure(_discreteValue.round()), place);
               Provider.of<CreateTrainModalModel>(context, listen: false).close();
             },
             child: Container(

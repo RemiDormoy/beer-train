@@ -1,23 +1,33 @@
-import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 
+import 'TrainRepository.dart';
 import 'colors.dart';
 
 class TrainAvancement extends StatelessWidget {
+  Train _train;
+
   @override
   Widget build(BuildContext context) {
+    _train = TrainRepository.getInstance().getTrain();
+    if (_train != null) {
+      return buildStuff();
+    } else {
+      return Container(height: 60,);
+    }
+  }
+
+  Container buildStuff() {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black38,
-            blurRadius: 12.0,
-            offset: Offset(2.0, 2.0),
-          ),
-        ]
-      ),
+          borderRadius: BorderRadius.circular(40),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              blurRadius: 12.0,
+              offset: Offset(2.0, 2.0),
+            ),
+          ]),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         child: Row(

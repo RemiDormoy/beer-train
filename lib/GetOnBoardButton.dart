@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'GetOnBoardDialog.dart';
+import 'TrainRepository.dart';
 import 'colors.dart';
 
 class GetOnBoardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var modalModel = Provider.of<CreateTrainModalModel>(context);
+    var modal2Model = Provider.of<GetOnBoardModel>(context);
+    var textMan;
+    if (TrainRepository.getInstance().getTrain() != null) {
+      textMan = 'Je monte à bord';
+    } else {
+      textMan = 'Lancer le train de la bière';
+    }
     return GestureDetector(
       onTap: () {
-        print('je click ok ?');
-        modalModel.open();
+        if (TrainRepository.getInstance().getTrain() != null) {
+          print('je devrais monter à bord');
+          modal2Model.open();
+        } else {
+          modalModel.open();
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width - 80,
@@ -18,7 +31,7 @@ class GetOnBoardButton extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
           child: Center(
             child: Text(
-              'Je monte à bord',
+              textMan,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,

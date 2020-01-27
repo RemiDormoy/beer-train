@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:beer_train/TrainRepository.dart';
 import 'package:beer_train/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lottie/flutter_lottie.dart';
+import 'package:flutter_svg/svg.dart';
 
 class BackgroundBeerTrain extends StatefulWidget {
   @override
@@ -59,22 +61,56 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
             ),
           ],
         ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Powered by',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                  ),
+                ),
+                SvgPicture.asset(
+                  'assets/logo_doggy_text.svg',
+                  color: Colors.white,
+                )
+              ],
+            ),
+          ),
+        ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 118, 0, 0),
           child: Container(
             height: MediaQuery.of(context).size.width * 667 / 375,
             width: MediaQuery.of(context).size.width,
-            child: LottieView.fromFile(
-              onViewCreated: onViewCreatedFile,
-              filePath: "assets/train_3_wagons.json",
-              autoPlay: true,
-              loop: true,
-              reverse: false,
-            ),
+            child: buildLottieView(),
           ),
         ),
       ],
     );
+  }
+
+  Widget buildLottieView() {
+    if (TrainRepository.getInstance().getTrain() != null) {
+      return LottieView.fromFile(
+        onViewCreated: onViewCreatedFile,
+        filePath: "assets/train_3_wagons.json",
+        autoPlay: true,
+        loop: true,
+        reverse: false,
+      );
+    } else {
+      return Text('');
+    }
   }
 
   void onViewCreatedFile(LottieController controller) {
