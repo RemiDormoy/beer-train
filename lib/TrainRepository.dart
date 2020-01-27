@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:convert' show Json;
 
 import 'package:http/http.dart' as http;
 
 class TrainRepository {
   static TrainRepository _instance;
+
+  String _selectedChief;
 
   static TrainRepository getInstance() {
     if (_instance == null) {
@@ -37,10 +38,32 @@ class TrainRepository {
     }
   }
 
+  void setSelectedChief(String name) {
+    _selectedChief = name;
+  }
+
+  Future<void> addOrRemoveMember(bool isSelected, String name) async {
+    final response = await http.put(
+        'http://localhost:8080/train',
+        body: jsonEncode({"name": name, "isOnboard": isSelected}),
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        }
+    );
+
+    if (response.statusCode == 200) {
+      print('le mec est ajouté');
+    } else {
+      // If that response was not OK, throw an error.
+      print('le mec est pas ajouté');
+    }
+  }
+
   Future<Object> createTrain(String time, String place) async {
     final response = await http.post(
       'http://localhost:8080/train',
-      body: jsonEncode({"chef": "rdo", "end": time, "place": place}),
+      body: jsonEncode({"chef": _selectedChief, "end": time, "place": place}),
       headers: {
         "Accept": "application/json",
         "Content-type": "application/json",
@@ -79,7 +102,7 @@ class _TrainData {
     return _TrainData(
       start: json['start'],
       end: json['end'],
-      arrivalPlace: json['arrivalPlace'],
+      arrivalPlace: json['place'],
       members: List<String>.from(json['members']),
     );
   }

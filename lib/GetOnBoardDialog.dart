@@ -1,8 +1,10 @@
+import 'package:beer_train/TrainRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'PassengersList.dart';
 import 'colors.dart';
+import 'home.dart';
 
 class GetOnBoardDialog extends StatefulWidget {
   @override
@@ -26,7 +28,11 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              child: PassengersList(_passengerChosen),
+              child: PassengersList((bool isSelected, String name) {
+                TrainRepository.getInstance().addOrRemoveMember(isSelected, name);
+                Provider.of<GetOnBoardModel>(context, listen: false).close();
+                Provider.of<ReloadModel>(context, listen: false).reload();
+              }),
             ),
           ),
           Align(
@@ -67,7 +73,6 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
     }
   }
 
-  void _passengerChosen() {}
 }
 
 class GetOnBoardModel extends ChangeNotifier {

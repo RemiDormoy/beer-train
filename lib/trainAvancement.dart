@@ -40,7 +40,7 @@ class TrainAvancement extends StatelessWidget {
                     Icon(Icons.my_location),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Le k1nze'),
+                      child: Text(TrainRepository.getInstance().getTrain().arrivalPlace),
                     ),
                   ],
                 ),
@@ -49,7 +49,7 @@ class TrainAvancement extends StatelessWidget {
                     Icon(Icons.access_time),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                      child: Text('19h15'),
+                      child: Text(getHour()),
                     ),
                   ],
                 ),
@@ -96,6 +96,14 @@ class TrainAvancement extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getHour() {
+    var minutes = TrainRepository.getInstance().getTrain().end.minute.toString();
+    if (minutes.length == 1) {
+      minutes += "0";
+    }
+    return TrainRepository.getInstance().getTrain().end.hour.toString() + 'h' + minutes;
   }
 }
 

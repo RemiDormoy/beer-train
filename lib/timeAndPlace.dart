@@ -1,17 +1,16 @@
-import 'package:beer_train/CreateTrainModal.dart';
 import 'package:beer_train/GetOnBoardButton.dart';
-import 'package:beer_train/passager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'TrainRepository.dart';
 import 'colors.dart';
+import 'home.dart';
 
 // ignore: must_be_immutable
 class TimeAndPlace extends StatefulWidget {
-  DriverChosenCallback _callback = () {};
+  TimeAndPlaceBack _callback;
 
-  TimeAndPlace([this._callback]);
+  TimeAndPlace(this._callback);
 
   @override
   _TimeAndPlaceState createState() => _TimeAndPlaceState();
@@ -144,6 +143,7 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
               var place = _controller.text.length == 0 ? 'Le k1nze' : _controller.text;
               TrainRepository.getInstance().createTrain(_calculeLHeure(_discreteValue.round()), place);
               Provider.of<CreateTrainModalModel>(context, listen: false).close();
+              Provider.of<ReloadModel>(context, listen: false).reload();
             },
             child: Container(
               width: MediaQuery.of(context).size.width - 80,
@@ -180,3 +180,5 @@ class _TimeAndPlaceState extends State<TimeAndPlace> {
     return "${hours}h$minutes";
   }
 }
+
+typedef TimeAndPlaceBack = void Function();

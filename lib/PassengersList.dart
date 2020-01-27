@@ -49,7 +49,7 @@ class PassengersList extends StatelessWidget {
                 Passager('BME', "assets/bme.jpg", _onDriverChoosen),
                 Passager('BRM', "assets/brm.jpg", _onDriverChoosen),
                 Passager('RDO', "assets/remi.jpg", _onDriverChoosen),
-                Passager('BEJ', "assets/megane.jpg", _onDriverChoosen),
+                Passager('MEG', "assets/megane.jpg", _onDriverChoosen),
                 Passager('RBO', "assets/rafaelle.jpg", _onDriverChoosen),
               ],
             ),

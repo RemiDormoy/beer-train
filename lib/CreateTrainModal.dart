@@ -1,3 +1,4 @@
+import 'package:beer_train/TrainRepository.dart';
 import 'package:beer_train/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:beer_train/timeAndPlace.dart';
@@ -158,7 +159,8 @@ class _CreateTrainModalgState extends State<CreateTrainModal>
     _controller.reverse();
   }
 
-  void _onDriverChoosen() {
+  void _onDriverChoosen(bool isSelected, String name) {
+    TrainRepository.getInstance().setSelectedChief(name);
     setState(() {
       _degrees = Tween<double>(
         begin: 0.0,
