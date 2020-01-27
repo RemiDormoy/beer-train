@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_lottie: ^0.2.0
+  clay_containers: ^0.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,6 +46,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/train.json
+   - assets/train_3_wagons.json
    - assets/alizee.jpg
    - assets/bej.jpg
    - assets/bme.jpg

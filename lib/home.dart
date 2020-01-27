@@ -14,28 +14,21 @@ class HomePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 80, 30, 0),
+                padding: const EdgeInsets.fromLTRB(15, 60, 15, 0),
                 child: TrainAvancement(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Column(
-                    children: <Widget>[Text('18:00'), Text('LE K1ZE')],
-                  ),
-                ),
-              ),
               Expanded(
-                flex: 3,
+                flex: 5,
                 child: Container(),
               ),
               Text(
-                'IL EST EN ROUTE !',
+                'Il est en route !\n3 passagers sont à bord',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white.withOpacity(0.5),
                 ),
+                textAlign: TextAlign.center,
               ),
               Expanded(
                 flex: 1,

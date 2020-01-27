@@ -22,7 +22,7 @@ class GetOnBoardButton extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
           child: Center(
             child: Text(
-              'MONTER À BORD',
+              'Je monte à bord',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -32,8 +32,15 @@ class GetOnBoardButton extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-          color: coquelicot,
+          color: skyGradientTop,
           borderRadius: BorderRadius.circular(40),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              blurRadius: 8.0,
+              offset: Offset(2.0, 2.0),
+            ),
+          ]
         ),
       ),
     );

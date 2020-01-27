@@ -1,3 +1,4 @@
+import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
@@ -5,28 +6,85 @@ import 'colors.dart';
 class TrainAvancement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(40),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black38,
+            blurRadius: 12.0,
+            offset: Offset(2.0, 2.0),
+          ),
+        ]
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        child: Row(
           children: <Widget>[
-            Icon(Icons.location_on, color: zeus, size: 40,),
-            Expanded(
-              flex: 4,
-              child: Container(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.my_location),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Le k1nze'),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.access_time),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                      child: Text('19h15'),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Icon(Icons.location_on, color: coquelicot, size: 40,),
-            Expanded(
-              flex: 4,
-              child: Container(),
+            Container(
+              width: 1,
+              height: 40,
+              decoration: BoxDecoration(color: Colors.grey),
             ),
-            Icon(Icons.location_on, color: zeus, size: 40,),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: Container(),
+                      ),
+                      Icon(
+                        Icons.location_on,
+                        color: coquelicot,
+                        size: 30,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Container(),
+                      ),
+                      Icon(
+                        Icons.location_on,
+                        color: zeus,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                    child: MySeparator(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-          child: MySeparator(color: Colors.grey),
-        ),
-      ],
+      ),
     );
   }
 }

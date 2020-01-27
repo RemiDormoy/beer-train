@@ -1,4 +1,3 @@
-import 'package:beer_train/passager.dart';
 import 'package:beer_train/timeAndPlace.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +88,7 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
         ..rotateZ(0.0),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.7,
-        width: MediaQuery.of(context).size.width - 60,
+        width: MediaQuery.of(context).size.width - 30,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(20)),

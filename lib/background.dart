@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lottie/flutter_lottie.dart';
 
 class BackgroundBeerTrain extends StatefulWidget {
-
   @override
   _BackgroundBeerTrainState createState() => _BackgroundBeerTrainState();
 }
 
 class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
-
-
   LottieController _controller;
   StreamController<double> _newProgressStream;
 
@@ -36,27 +33,40 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
               flex: 1,
               child: Container(
                 decoration: BoxDecoration(
-                  color: sky,
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [skyGradientTop, skyGradientBottom]),
                 ),
+              ),
+            ),
+            Container(
+              height: 10,
+              decoration: BoxDecoration(
+                color: backgroundSeparatorGreen,
               ),
             ),
             Expanded(
               flex: 1,
               child: Container(
                 decoration: BoxDecoration(
-                  color: sky,
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [grassGradientTop, grassGradientBottom]),
                 ),
               ),
-            )
+            ),
           ],
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
-          child: FractionallySizedBox(
-            heightFactor: 0.3,
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: Container(
+            height: MediaQuery.of(context).size.width * 667 / 375,
+            width: MediaQuery.of(context).size.width,
             child: LottieView.fromFile(
               onViewCreated: onViewCreatedFile,
-              filePath: "assets/train.json",
+              filePath: "assets/train_3_wagons.json",
               autoPlay: true,
               loop: true,
               reverse: false,

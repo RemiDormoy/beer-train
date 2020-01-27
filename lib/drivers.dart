@@ -1,9 +1,7 @@
 import 'package:beer_train/passager.dart';
 import 'package:flutter/material.dart';
 
-class DriverList extends StatelessWidget{
-
-
+class DriverList extends StatelessWidget {
   DriverChosenCallback _onDriverChoosen;
 
   DriverList(this._onDriverChoosen);
@@ -12,29 +10,30 @@ class DriverList extends StatelessWidget{
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 30, 0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.black,
-                  size: 60,
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF3A3A39),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                child: Text(
+                  'Choix du chef de bord',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
                 ),
               ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-          child: Text(
-            'CHOIX DU CHEF DE BORD',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
         Expanded(
