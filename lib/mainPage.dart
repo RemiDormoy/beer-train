@@ -27,9 +27,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _firebaseMessaging = FirebaseMessaging();
-    _firebaseMessaging.subscribeToTopic('all').then((_firebaseMessaging) {
-      print('tema jai souscrit');
-    });
+    _firebaseMessaging.subscribeToTopic('all');
     firebaseCloudMessaging_Listeners();
   }
 

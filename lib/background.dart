@@ -11,20 +11,6 @@ class BackgroundBeerTrain extends StatefulWidget {
 }
 
 class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
-  LottieController _controller;
-  StreamController<double> _newProgressStream;
-
-  @override
-  void initState() {
-    super.initState();
-    _newProgressStream = StreamController<double>();
-  }
-
-  void dispose() {
-    super.dispose();
-    _newProgressStream.close();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -88,29 +74,76 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 118, 0, 0),
+          padding: EdgeInsets.fromLTRB(
+              0,
+              MediaQuery.of(context).size.height -
+                  (MediaQuery.of(context).size.width * 667 / 375) -
+                  10,
+              0,
+              0),
           child: Container(
             height: MediaQuery.of(context).size.width * 667 / 375,
             width: MediaQuery.of(context).size.width,
-            child: buildLottieView(),
+            child: LottieStuff(),
+            decoration: BoxDecoration(),
           ),
         ),
       ],
     );
   }
+}
 
-  Widget buildLottieView() {
-    if (TrainRepository.getInstance().getTrain() != null) {
-      return LottieView.fromFile(
-        onViewCreated: onViewCreatedFile,
-        filePath: "assets/train_3_wagons.json",
-        autoPlay: true,
-        loop: true,
-        reverse: false,
-      );
+class LottieStuff extends StatefulWidget {
+  @override
+  _LottieStuffState createState() => _LottieStuffState();
+}
+
+class _LottieStuffState extends State<LottieStuff> {
+  LottieController _controller;
+  StreamController<double> _newProgressStream;
+  String _asset = "assets/no_train.json";
+
+  @override
+  Widget build(BuildContext context) {
+    var train = TrainRepository.getInstance().getTrain();
+    var asset;
+    if (train == null) {
+      asset = "assets/no_train.json";
+    } else if (train.members.length <= 1) {
+      asset = "assets/only_driver_train.json";
+    } else if (train.members.length <= 4) {
+      asset = "assets/train_1_wagon.json";
+    } else if (train.members.length <= 7) {
+      print('le train a 2 wagon');
+      asset = "assets/train_2_wagons.json";
     } else {
+      asset = "assets/train_3_wagons.json";
+    }
+    if (asset != _asset) {
+      _asset = asset;
+      Timer(Duration(milliseconds: 300), () {
+        setState(() {});
+      });
       return Text('');
     }
+    return LottieView.fromFile(
+      onViewCreated: onViewCreatedFile,
+      filePath: _asset,
+      autoPlay: true,
+      loop: true,
+      reverse: false,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _newProgressStream = StreamController<double>();
+  }
+
+  void dispose() {
+    super.dispose();
+    _newProgressStream.close();
   }
 
   void onViewCreatedFile(LottieController controller) {

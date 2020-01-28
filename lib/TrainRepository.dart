@@ -23,16 +23,21 @@ class TrainRepository {
   }
 
   Future<Object> init() async {
-    final response = await http.get('http://ec2-35-180-100-132.eu-west-3.compute.amazonaws.com/train');
+    try {
+      final response = await http.get(
+          'http://ec2-35-180-100-132.eu-west-3.compute.amazonaws.com/train');
 
-    if (response.statusCode == 200) {
-      // If server returns an OK response, parse the JSON.
-      _TrainData trainData = _TrainData.fromJson(json.decode(response.body));
-      DateTime start = DateTime.parse(trainData.start);
-      DateTime end = DateTime.parse(trainData.end);
-      _train = Train(trainData.members, start, end, trainData.arrivalPlace);
-    } else {
-      // If that response was not OK, throw an error.
+      if (response.statusCode == 200) {
+        // If server returns an OK response, parse the JSON.
+        _TrainData trainData = _TrainData.fromJson(json.decode(response.body));
+        DateTime start = DateTime.parse(trainData.start);
+        DateTime end = DateTime.parse(trainData.end);
+        _train = Train(trainData.members, start, end, trainData.arrivalPlace);
+      } else {
+        _train = null;
+      }
+    } catch (e) {
+      _train = null;
     }
   }
 

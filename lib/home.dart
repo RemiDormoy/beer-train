@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:beer_train/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+  ReloadModel _model = ReloadModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _periodicReload();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -16,6 +28,10 @@ class _HomePageState extends State<HomePage> {
         body: MainPage(),
       ),
     );
+  }
+
+  void _periodicReload() {
+
   }
 }
 
