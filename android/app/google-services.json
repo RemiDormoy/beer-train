@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1097775714371",
+    "firebase_url": "https://beer-train.firebaseio.com",
+    "project_id": "beer-train",
+    "storage_bucket": "beer-train.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097775714371:android:45fec5aceba9044f2cc4f6",
+        "android_client_info": {
+          "package_name": "com.octo.rdo.beer_train"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097775714371-kslm2ev38jrf3sqjs0mio8l3d8mtcpre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4t3CzCijS2pT03heJeKDOkz8iH571qZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097775714371-kslm2ev38jrf3sqjs0mio8l3d8mtcpre.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097775714371-1fm12sg64beko65ffkl7vdfjvkqvtnqh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.octo.rdo.beerTrain"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

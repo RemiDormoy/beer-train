@@ -19,7 +19,6 @@ class GetOnBoardButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (TrainRepository.getInstance().getTrain() != null) {
-          print('je devrais monter à bord');
           modal2Model.open();
         } else {
           modalModel.open();

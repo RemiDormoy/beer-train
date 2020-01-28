@@ -31,10 +31,8 @@ class TrainRepository {
       DateTime start = DateTime.parse(trainData.start);
       DateTime end = DateTime.parse(trainData.end);
       _train = Train(trainData.members, start, end, trainData.arrivalPlace);
-      print('le train est parsé');
     } else {
       // If that response was not OK, throw an error.
-      print('Pas de train pour toi gros mauvais');
     }
   }
 
@@ -53,10 +51,8 @@ class TrainRepository {
     );
 
     if (response.statusCode == 200) {
-      print('le mec est ajouté');
     } else {
       // If that response was not OK, throw an error.
-      print('le mec est pas ajouté');
     }
   }
 
@@ -71,10 +67,8 @@ class TrainRepository {
     );
 
     if (response.statusCode == 200) {
-      print('le train est créé');
     } else {
       // If that response was not OK, throw an error.
-      print('le train est pas créé');
     }
   }
 

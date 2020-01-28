@@ -1,6 +1,8 @@
 import 'package:beer_train/trainAvancement.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 
 import 'CreateTrainModal.dart';
 import 'GetOnBoardButton.dart';
@@ -9,6 +11,7 @@ import 'TrainRepository.dart';
 import 'background.dart';
 import 'colors.dart';
 import 'home.dart';
+import 'main.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,10 +21,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   bool _isLoaded = false;
 
+  FirebaseMessaging _firebaseMessaging;
 
   @override
   void initState() {
     super.initState();
+    _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.subscribeToTopic('all').then((_firebaseMessaging) {
+      print('tema jai souscrit');
+    });
+    firebaseCloudMessaging_Listeners();
     TrainRepository.getInstance().init().then((_) {
       setState(() {
         _isLoaded = true;
@@ -30,6 +39,38 @@ class _MainPageState extends State<MainPage> {
       setState(() {
         _isLoaded = true;
       });
+    });
+  }
+
+  void firebaseCloudMessaging_Listeners() {
+    if (defaultTargetPlatform == TargetPlatform.iOS) iOS_Permission();
+
+    _firebaseMessaging.getToken().then((token){
+      print('token : $token');
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onBackgroundMessage: myBackgroundMessageHandler,
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+  }
+
+  void iOS_Permission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true)
+    );
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings)
+    {
+      print("Settings registered: $settings");
     });
   }
 

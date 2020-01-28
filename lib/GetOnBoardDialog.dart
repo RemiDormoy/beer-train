@@ -17,7 +17,6 @@ class _GetOnBoardDialogState extends State<GetOnBoardDialog>
   Widget build(BuildContext context) {
     var isModalModel = Provider.of<GetOnBoardModel>(context).getOpenitude();
     if (isModalModel) {
-      print(isModalModel.toString() + "yolo ta race");
       return Stack(
         children: <Widget>[
           Center(
@@ -79,7 +78,6 @@ class GetOnBoardModel extends ChangeNotifier {
   bool _isOpen = false;
 
   bool getOpenitude() {
-    print('je viens de getter : ${_isOpen.toString()}');
     return _isOpen;
   }
 
@@ -88,7 +86,6 @@ class GetOnBoardModel extends ChangeNotifier {
     if (!_isOpen) {
       _isOpen = true;
       notifyListeners();
-      print('je viens de notifier');
     }
   }
 
