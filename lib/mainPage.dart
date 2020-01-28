@@ -31,21 +31,12 @@ class _MainPageState extends State<MainPage> {
       print('tema jai souscrit');
     });
     firebaseCloudMessaging_Listeners();
-    TrainRepository.getInstance().init().then((_) {
-      setState(() {
-        _isLoaded = true;
-      });
-    }).catchError((_) {
-      setState(() {
-        _isLoaded = true;
-      });
-    });
   }
 
   void firebaseCloudMessaging_Listeners() {
     if (defaultTargetPlatform == TargetPlatform.iOS) iOS_Permission();
 
-    _firebaseMessaging.getToken().then((token){
+    _firebaseMessaging.getToken().then((token) {
       print('token : $token');
     });
 
@@ -65,28 +56,24 @@ class _MainPageState extends State<MainPage> {
 
   void iOS_Permission() {
     _firebaseMessaging.requestNotificationPermissions(
-        IosNotificationSettings(sound: true, badge: true, alert: true)
-    );
+        IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings)
-    {
+        .listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<ReloadModel>(context).shouldReload) {
-      TrainRepository.getInstance().init().then((_) {
-        setState(() {
-          _isLoaded = true;
-        });
-      }).catchError((_) {
-        setState(() {
-          _isLoaded = true;
-        });
+    TrainRepository.getInstance().init().then((_) {
+      setState(() {
+        _isLoaded = true;
       });
-    }
+    }).catchError((_) {
+      setState(() {
+        _isLoaded = true;
+      });
+    });
     var body;
     if (_isLoaded) {
       body = buildLoadedHome();
@@ -102,7 +89,8 @@ class _MainPageState extends State<MainPage> {
   ChangeNotifierProvider<GetOnBoardModel> buildLoadedHome() {
     var textMan;
     if (TrainRepository.getInstance().getTrain() != null) {
-      var yolo = TrainRepository.getInstance().getTrain().members.length.toString();
+      var yolo =
+          TrainRepository.getInstance().getTrain().members.length.toString();
       textMan = 'Il est en route !\n$yolo passagers sont à bord';
     } else {
       textMan = 'Aucun train en route';

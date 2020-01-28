@@ -23,7 +23,7 @@ class TrainRepository {
   }
 
   Future<Object> init() async {
-    final response = await http.get('http://localhost:8080/train');
+    final response = await http.get('http://ec2-35-180-100-132.eu-west-3.compute.amazonaws.com/train');
 
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON.
@@ -42,7 +42,7 @@ class TrainRepository {
 
   Future<void> addOrRemoveMember(bool isSelected, String name) async {
     final response = await http.put(
-        'http://localhost:8080/train',
+        'http://ec2-35-180-100-132.eu-west-3.compute.amazonaws.com/train',
         body: jsonEncode({"name": name, "isOnboard": isSelected}),
         headers: {
           "Accept": "application/json",
@@ -58,7 +58,7 @@ class TrainRepository {
 
   Future<Object> createTrain(String time, String place) async {
     final response = await http.post(
-      'http://localhost:8080/train',
+      'http://ec2-35-180-100-132.eu-west-3.compute.amazonaws.com/train',
       body: jsonEncode({"chef": _selectedChief, "end": time, "place": place}),
       headers: {
         "Accept": "application/json",
