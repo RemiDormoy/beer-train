@@ -17,6 +17,10 @@ class TrainAvancement extends StatelessWidget {
   }
 
   Container buildStuff() {
+    var now = DateTime.now();
+    var total = _train.end.difference(_train.start).inMinutes;
+    var first = now.difference(_train.start).inMinutes;
+    var second = _train.end.compareTo(now);
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
@@ -66,7 +70,7 @@ class TrainAvancement extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 4,
+                        flex: ((first / total) * 100).round(),
                         child: Container(),
                       ),
                       Icon(
@@ -75,7 +79,7 @@ class TrainAvancement extends StatelessWidget {
                         size: 30,
                       ),
                       Expanded(
-                        flex: 4,
+                        flex: ((second / total) * 100).round(),
                         child: Container(),
                       ),
                       Icon(
