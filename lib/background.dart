@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:beer_train/TrainRepository.dart';
 import 'package:beer_train/colors.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class BackgroundBeerTrain extends StatefulWidget {
 class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
   @override
   Widget build(BuildContext context) {
+    var rationCiel = 297 / 667;
+    var height = MediaQuery.of(context).size.width * 667 / 375;
     return Stack(
       children: <Widget>[
         Column(
@@ -34,15 +37,14 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
                 color: backgroundSeparatorGreen,
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [grassGradientTop, grassGradientBottom]),
-                ),
+            Container(
+              height: height * 370 / 667,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [grassGradientTop, grassGradientBottom]),
               ),
             ),
           ],
@@ -73,19 +75,21 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(
-              0,
-              MediaQuery.of(context).size.height -
-                  (MediaQuery.of(context).size.width * 667 / 375) -
-                  10,
-              0,
-              0),
-          child: Container(
-            height: MediaQuery.of(context).size.width * 667 / 375,
-            width: MediaQuery.of(context).size.width,
-            child: LottieStuff(),
-            decoration: BoxDecoration(),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                0,
+                0,
+                0,
+                10),
+            child: Container(
+              height: height,
+              width: MediaQuery.of(context).size.width,
+              child: LottieStuff(),
+              decoration: BoxDecoration(
+              ),
+            ),
           ),
         ),
       ],
