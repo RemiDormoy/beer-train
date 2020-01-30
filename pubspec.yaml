@@ -67,6 +67,8 @@ flutter:
    - assets/only_driver_train.json
    - assets/train_1_wagon.json
    - assets/train_2_wagons.json
+   - assets/bonheur_beers.svg
+   - assets/congrats_bandeau.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

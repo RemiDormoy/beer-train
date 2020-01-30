@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
 import 'CreateTrainModal.dart';
+import 'FinishDialog.dart';
 import 'GetOnBoardButton.dart';
 import 'GetOnBoardDialog.dart';
 import 'TrainRepository.dart';
@@ -134,6 +135,7 @@ class _MainPageState extends State<MainPage> {
             ),
             CreateTrainModal(),
             GetOnBoardDialog(),
+            FinishDialog(),
           ],
         ),
       ),

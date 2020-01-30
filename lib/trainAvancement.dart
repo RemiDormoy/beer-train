@@ -20,7 +20,7 @@ class TrainAvancement extends StatelessWidget {
     var now = DateTime.now();
     var total = _train.end.difference(_train.start).inMinutes;
     var first = now.difference(_train.start).inMinutes;
-    var second = _train.end.compareTo(now);
+    var second = _train.end.difference(now).inMinutes;
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),

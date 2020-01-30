@@ -14,7 +14,6 @@ class BackgroundBeerTrain extends StatefulWidget {
 class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
   @override
   Widget build(BuildContext context) {
-    var rationCiel = 297 / 667;
     var height = MediaQuery.of(context).size.width * 667 / 375;
     return Stack(
       children: <Widget>[
