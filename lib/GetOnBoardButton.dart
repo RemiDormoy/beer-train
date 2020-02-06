@@ -8,6 +8,10 @@ import 'colors.dart';
 class GetOnBoardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery.of(context).size.width < 300 &&
+        MediaQuery.of(context).size.height < 300) {
+       return Container(height: 70,);
+    }
     var modalModel = Provider.of<CreateTrainModalModel>(context);
     var modal2Model = Provider.of<GetOnBoardModel>(context);
     var textMan;

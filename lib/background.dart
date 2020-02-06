@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'package:beer_train/TrainRepository.dart';
 import 'package:beer_train/colors.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lottie/flutter_lottie.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BackgroundBeerTrain extends StatefulWidget {
@@ -14,7 +14,40 @@ class BackgroundBeerTrain extends StatefulWidget {
 class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.width * 667 / 375;
+    var height = min(MediaQuery.of(context).size.width * 667 / 375,
+        MediaQuery.of(context).size.height - 5);
+    var poweredLogo;
+    if (MediaQuery.of(context).size.width < 300 &&
+        MediaQuery.of(context).size.height < 300) {
+      poweredLogo = Container();
+    } else {
+      poweredLogo = Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Powered by',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/logo_doggy_text.svg',
+                color: Colors.white,
+              )
+            ],
+          ),
+        ),
+      );
+    }
     return Stack(
       children: <Widget>[
         Column(
@@ -48,46 +81,16 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
             ),
           ],
         ),
+        poweredLogo,
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Powered by',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white.withOpacity(0.5),
-                    ),
-                  ),
-                ),
-                SvgPicture.asset(
-                  'assets/logo_doggy_text.svg',
-                  color: Colors.white,
-                )
-              ],
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                0,
-                0,
-                0,
-                10),
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
             child: Container(
               height: height,
               width: MediaQuery.of(context).size.width,
               child: LottieStuff(),
-              decoration: BoxDecoration(
-              ),
+              decoration: BoxDecoration(),
             ),
           ),
         ),
@@ -102,56 +105,49 @@ class LottieStuff extends StatefulWidget {
 }
 
 class _LottieStuffState extends State<LottieStuff> {
-  LottieController _controller;
-  StreamController<double> _newProgressStream;
-  String _asset = "assets/no_train.json";
+  String _asset = "assets/only_driver_train.flr";
 
   @override
   Widget build(BuildContext context) {
     var train = TrainRepository.getInstance().getTrain();
     var asset;
     if (train == null) {
-      asset = "assets/no_train.json";
+      asset = "assets/no_train.flr";
     } else if (train.members.length <= 1) {
-      asset = "assets/only_driver_train.json";
+      asset = "assets/only_driver_train.flr";
     } else if (train.members.length <= 4) {
-      asset = "assets/train_1_wagon.json";
+      asset = "assets/train_1_wagon.flr";
     } else if (train.members.length <= 7) {
       print('le train a 2 wagon');
-      asset = "assets/train_2_wagons.json";
+      asset = "assets/train_2_wagons.flr";
     } else {
-      asset = "assets/train_3_wagons.json";
+      asset = "assets/train_3_wagons.flr";
     }
     if (asset != _asset) {
       _asset = asset;
-      Timer(Duration(milliseconds: 300), () {
+      Timer(Duration(milliseconds: 100), () {
         setState(() {});
       });
       return Text('');
     }
-    return LottieView.fromFile(
-      onViewCreated: onViewCreatedFile,
-      filePath: _asset,
-      autoPlay: true,
-      loop: true,
-      reverse: false,
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: FlareActor(
+          asset,
+          alignment: Alignment.center,
+          fit: BoxFit.fitHeight,
+          animation: "Animations",
+          callback: (name) {
+            if (name == "Animations") {
+              setState(() {
+                _asset = "";
+              });
+            }
+          },
+        ),
+      ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _newProgressStream = StreamController<double>();
-  }
-
-  void dispose() {
-    super.dispose();
-    _newProgressStream.close();
-  }
-
-  void onViewCreatedFile(LottieController controller) {
-    _newProgressStream.stream.listen((double progress) {
-      _controller.setAnimationProgress(progress);
-    });
   }
 }

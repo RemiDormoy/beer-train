@@ -27,9 +27,11 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _firebaseMessaging = FirebaseMessaging();
-    _firebaseMessaging.subscribeToTopic('all');
-    firebaseCloudMessaging_Listeners();
+    if (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
+      _firebaseMessaging = FirebaseMessaging();
+      _firebaseMessaging.subscribeToTopic('all');
+      firebaseCloudMessaging_Listeners();
+    }
   }
 
   void firebaseCloudMessaging_Listeners() {
@@ -38,7 +40,6 @@ class _MainPageState extends State<MainPage> {
     _firebaseMessaging.getToken().then((token) {
       print('token : $token');
     });
-
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print('on message $message');

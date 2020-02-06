@@ -19,12 +19,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_lottie: ^0.2.0
   clay_containers: ^0.2.2
   provider: ^4.0.2
-  flutter_svg: ^0.17.0
+  flutter_svg: ^0.17.1
   http: ^0.12.0+4
   firebase_messaging: ^6.0.9
+  flare_flutter: ^2.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,6 +51,7 @@ flutter:
   assets:
    - assets/train.json
    - assets/train_3_wagons.json
+   - assets/train_3_wagons.flr
    - assets/alizee.jpg
    - assets/bej.jpg
    - assets/bme.jpg
@@ -64,11 +65,21 @@ flutter:
    - assets/remi.jpg
    - assets/logo_doggy_text.svg
    - assets/no_train.json
+   - assets/no_train.flr
    - assets/only_driver_train.json
+   - assets/only_driver_train.flr
    - assets/train_1_wagon.json
+   - assets/train_1_wagon.flr
    - assets/train_2_wagons.json
+   - assets/train_2_wagons.flr
    - assets/bonheur_beers.svg
    - assets/congrats_bandeau.svg
+   - assets/cedric.jpg
+   - assets/faustine.jpg
+   - assets/joseph.jpg
+   - assets/leo.jpg
+   - assets/mila.jpg
+   - assets/stephane.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

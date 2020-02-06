@@ -78,25 +78,32 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.9"
+  flare_dart:
+    dependency: transitive
+    description:
+      name: flare_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.3"
+  flare_flutter:
+    dependency: "direct main"
+    description:
+      name: flare_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_lottie:
-    dependency: "direct main"
-    description:
-      name: flutter_lottie
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   flutter_svg:
     dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.17.0"
+    version: "0.17.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
