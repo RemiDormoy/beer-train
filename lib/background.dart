@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:beer_train/TrainRepository.dart';
 import 'package:beer_train/colors.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -39,10 +40,7 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                'assets/logo_doggy_text.svg',
-                color: Colors.white,
-              )
+              buildSvgPicture(),
             ],
           ),
         ),
@@ -95,6 +93,20 @@ class _BackgroundBeerTrainState extends State<BackgroundBeerTrain> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildSvgPicture() {
+    if (kIsWeb) {
+      return Image.asset(
+        "assets/doggy_name.png",
+        height: 80,
+        width: 80,
+      );
+    }
+    return SvgPicture.asset(
+      'assets/logo_doggy_text.svg',
+      color: Colors.white,
     );
   }
 }

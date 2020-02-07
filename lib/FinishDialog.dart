@@ -1,6 +1,7 @@
 import 'package:beer_train/TrainRepository.dart';
 import 'package:beer_train/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -49,7 +50,7 @@ class _FinishDialogState extends State<FinishDialog> {
                               fontWeight: FontWeight.bold, fontSize: 18)),
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 20),
-                        child: SvgPicture.asset("assets/bonheur_beers.svg"),
+                        child: buildSvgPicture(),
                       ),
                       Text(
                           "Éloigne toi de la bordure du quai et viens boire une pinte",
@@ -69,6 +70,19 @@ class _FinishDialogState extends State<FinishDialog> {
     } else {
       return Container();
     }
+  }
+
+  Widget buildSvgPicture() {
+    if (kIsWeb) {
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width / 3,
+          maxHeight: MediaQuery.of(context).size.height / 6,
+        ),
+        child: Image.asset("assets/bonheur_beers.png"),
+      );
+    }
+    return SvgPicture.asset("assets/bonheur_beers.svg");
   }
 
   Align buildButton(BuildContext context) {
@@ -115,10 +129,7 @@ class _FinishDialogState extends State<FinishDialog> {
         child: Stack(
           children: <Widget>[
             Center(
-              child: SvgPicture.asset(
-                "assets/congrats_bandeau.svg",
-                width: MediaQuery.of(context).size.width - 20,
-              ),
+              child: buildSvgBandeau(context),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -135,6 +146,16 @@ class _FinishDialogState extends State<FinishDialog> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildSvgBandeau(BuildContext context) {
+    if (kIsWeb) {
+      return Image.asset("assets/congrats_bandeau.png");
+    }
+    return SvgPicture.asset(
+      "assets/congrats_bandeau.svg",
+      width: MediaQuery.of(context).size.width - 20,
     );
   }
 }

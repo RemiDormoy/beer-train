@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    if (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
       _firebaseMessaging = FirebaseMessaging();
       _firebaseMessaging.subscribeToTopic('all');
       firebaseCloudMessaging_Listeners();
